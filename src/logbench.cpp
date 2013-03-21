@@ -78,7 +78,8 @@ int main(int argc, char** argv) {
     // == End creating Poco loggers
 
     // == Init GLOG
-    google::InitGoogleLogging("benchglog.log");
+    google::SetStderrLogging(4); // no logging to strerr
+    google::InitGoogleLogging(argv[0]);;
 
     LogBenchmark::PocoBenchmark pocoFormattedBenchmark(Logger::get(pocoFormattingLogger),pocoFormattingLogger);
     LogBenchmark::PocoBenchmark pocoSimpleBenchmark(Logger::get(pocoSimpleLogger),pocoSimpleLogger);
