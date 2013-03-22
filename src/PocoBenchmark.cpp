@@ -51,38 +51,41 @@ void PocoBenchmark::MacroRef(std::string message, size_t cnt) {
 }
 
 void PocoBenchmark::MacroRefWithIntParam(std::string message, size_t cnt) {
+    string pattern = message+" %d";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(logger_,message+" %d",1);
-        poco_information_f1(logger_,message+" %d",1);
-        poco_error_f1(logger_,message+" %d",1);
+        poco_debug_f1(logger_, pattern, 1);
+        poco_information_f1(logger_, pattern, 1);
+        poco_error_f1(logger_, pattern, 1);
     }
 }
 
 void PocoBenchmark::MacroRefWithStringParam(std::string message, size_t cnt) {
     string param;
     param = "a";
+    string pattern = message+" %s";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(logger_,message+" %s",param);
-        poco_information_f1(logger_,message+" %s",param);
-        poco_error_f1(logger_,message+" %s",param);
+        poco_debug_f1(logger_, pattern, param);
+        poco_information_f1(logger_, pattern, param);
+        poco_error_f1(logger_, pattern, param);
     }
 }
 
 void PocoBenchmark::MacroRefWithFloatParam(std::string message, size_t cnt) {
+    string pattern = message+" %f";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(logger_,message+" %f",1.23);
-        poco_information_f1(logger_,message+" %f",1.23);
-        poco_error_f1(logger_,message+" %f",1.23);
+        poco_debug_f1(logger_, pattern, 1.23);
+        poco_information_f1(logger_, pattern, 1.23);
+        poco_error_f1(logger_, pattern, 1.23);
     }
 }
 
 void PocoBenchmark::MacroRefErrFmt(std::string message, size_t cnt) {
+    string pattern = message+" %s";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(logger_,message+" %s",1.23);
-        poco_information_f1(logger_,message+" %s",1.23);
-        poco_error_f1(logger_,message+" %s",1.23);
+        poco_debug_f1(logger_, pattern, 1.23);
+        poco_information_f1(logger_, pattern, 1.23);
+        poco_error_f1(logger_, pattern, 1.23);
     }
-
 }
 
 void PocoBenchmark::MacroGet(std::string message, size_t cnt) {
@@ -94,35 +97,40 @@ void PocoBenchmark::MacroGet(std::string message, size_t cnt) {
 }
 
 void PocoBenchmark::MacroGetWithIntParam(std::string message, size_t cnt) {
+    string pattern = message+" %d";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(Logger::get(loggerName_),message+" %d",1);
-        poco_information_f1(Logger::get(loggerName_),message+" %d",1);
-        poco_error_f1(Logger::get(loggerName_),message+" %d",1);
+        poco_debug_f1(Logger::get(loggerName_), pattern, 1);
+        poco_information_f1(Logger::get(loggerName_), pattern, 1);
+        poco_error_f1(Logger::get(loggerName_), pattern, 1);
     }
 }
 
 void PocoBenchmark::MacroGetWithStringParam(std::string message, size_t cnt) {
     string param;
+    param = "a";
+    string pattern = message+" %s";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(Logger::get(loggerName_),message+" %s",param);
-        poco_information_f1(Logger::get(loggerName_),message+" %s",param);
-        poco_error_f1(Logger::get(loggerName_),message+" %s",param);
+        poco_debug_f1(Logger::get(loggerName_), pattern, param);
+        poco_information_f1(Logger::get(loggerName_), pattern, param);
+        poco_error_f1(Logger::get(loggerName_), pattern, param);
     }
 }
 
 void PocoBenchmark::MacroGetWithFloatParam(std::string message, size_t cnt) {
+    string pattern = message+" %f";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(Logger::get(loggerName_),message+" %f",1.23);
-        poco_information_f1(Logger::get(loggerName_),message+" %f",1.23);
-        poco_error_f1(Logger::get(loggerName_),message+" %f",1.23);
+        poco_debug_f1(Logger::get(loggerName_), pattern, 1.23);
+        poco_information_f1(Logger::get(loggerName_), pattern, 1.23);
+        poco_error_f1(Logger::get(loggerName_), pattern, 1.23);
     }
 }
 
 void PocoBenchmark::MacroGetErrFmt(std::string message, size_t cnt) {
+    string pattern = message+" %s";
     for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(Logger::get(loggerName_),message+" %s",1.23);
-        poco_information_f1(Logger::get(loggerName_),message+" %s",1.23);
-        poco_error_f1(Logger::get(loggerName_),message+" %s",1.23);
+        poco_debug_f1(Logger::get(loggerName_), pattern, 1.23);
+        poco_information_f1(Logger::get(loggerName_), pattern, 1.23);
+        poco_error_f1(Logger::get(loggerName_), pattern, 1.23);
     }
 }
 
