@@ -5,6 +5,11 @@
      - use stream logging;
      - use macros or call logger method.
 
+    Every mini bench do 3 calls(of course "number of cycles" times) - 1 debug and 2 other levels.
+    And for every logger exist 1 minibench which do 3 debug calls.
+    In release build debug messages shouldn't be logged to file.
+    In debug - all log messages should be logged.
+
     @author Dmitriy T.
    */
 #include "PocoBenchmark.h"
@@ -72,9 +77,8 @@ int main(int argc, char** argv) {
     fileChannel2->setProperty("purgeAge","1 seconds");
     fileChannel2->setProperty("rotateOnOpen","true");
 
-
-    Logger::create(pocoFormattingLogger, formattingChannel, Message::PRIO_INFORMATION);
-    Logger::create(pocoSimpleLogger, fileChannel2, Message::PRIO_INFORMATION);
+    Logger::create(pocoFormattingLogger, formattingChannel, Message::PRIO_DEBUG);
+    Logger::create(pocoSimpleLogger, fileChannel2, Message::PRIO_DEBUG);
     // == End creating Poco loggers
 
     // == Init GLOG
@@ -93,13 +97,13 @@ int main(int argc, char** argv) {
     }
 
     res = pocoFormattedBenchmark.BenchmarkAll("test message",cnt);
-    cout<<"POCO FORMATTED: "<<endl;
+    cout<<endl<<"POCO FORMATTED: "<<endl;
     for (BenchmarkResults::iterator it=res.begin(); it!=res.end(); ++it) {
         cout<<setw(65)<<(*it).first<<" "<<(*it).second<<endl;
     }
 
     res = glogBenchmark.BenchmarkAll("test message", cnt);
-    cout<<"GLOG"<<endl;
+    cout<<endl<<"GLOG"<<endl;
     for (BenchmarkResults::iterator it=res.begin(); it!=res.end(); ++it) {
         cout<<setw(65)<<(*it).first<<" "<<(*it).second<<endl;
     }
