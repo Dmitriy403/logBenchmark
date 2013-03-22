@@ -1,24 +1,35 @@
+# Pass GLOG_ROOT if u want us search in it
+#
 # Try to find the libglog libraries
 # Once done this will define :
 #
 # Glog_FOUND - system has libglog
 # Glog_INCLUDE_DIRS - the libglog include directory
 # Glog_LIBRARIES - libglog library
+include(FindPackageHandleStandardArgs)
 
-FIND_PATH(GLOG_INCLUDE_DIRS logging.h PATHS /include/glog /usr/include/glog /usr/local/include/glog )
-FIND_LIBRARY(GLOG_LIBRARIES NAMES glog PATHS /lib /usr/lib /usr/local/lib )
+if(MSVC)
+    FIND_PATH(GLOG_INCLUDE_DIR glog/logging.h 
+            PATHS ${GLOG_ROOT}/src/windows)
+    FIND_LIBRARY(GLOG_LIBRARY_DEBUG NAMES libglog_static
+            PATHS ${GLOG_ROOT}
+            PATH_SUFFIXES Debug)
+    FIND_LIBRARY(GLOG_LIBRARY_RELEASE NAMES libglog_static
+            PATHS ${GLOG_ROOT}
+            PATH_SUFFIXES Release)
+    set (GLOG_LIBRARY optimized ${GLOG_LIBRARY_RELEASE} debug ${GLOG_LIBRARY_DEBUG})
+else()    
+    FIND_PATH(GLOG_INCLUDE_DIR glog/logging.h 
+            PATHS /include /usr/include /usr/local/include ${GLOG_ROOT})
+    FIND_LIBRARY(GLOG_LIBRARY NAMES glog 
+            PATHS /  /usr /usr/local ${GLOG_ROOT}
+            PATH_SUFFIXES lib lib64)
+endif()
 
-IF(GLOG_INCLUDE_DIRS AND GLOG_LIBRARIES)
-  SET(Glog_FOUND 1)
-  #remove last /glog string
-  STRING(REGEX REPLACE "/glog" "" GLOG_INCLUDE_DIRS_SUP_LEVEL ${GLOG_INCLUDE_DIRS})
-  SET (GLOG_INCLUDE_DIRS ${GLOG_INCLUDE_DIRS_SUP_LEVEL} ${GLOG_INCLUDE_DIRS} )
-  if(NOT Glog_FIND_QUIETLY)
-   message (STATUS "    glog found in include=${GLOG_INCLUDE_DIRS},lib=${GLOG_LIBRARIES}")
-  endif(NOT Glog_FIND_QUIETLY)
-ELSE(GLOG_INCLUDE_DIRS AND GLOG_LIBRARIES)
-  SET(Glog_FOUND 0 CACHE BOOL "Not found glog library")
-  message(STATUS "NOT Found glog")
-ENDIF(GLOG_INCLUDE_DIRS AND GLOG_LIBRARIES)
+find_package_handle_standard_args(GLOG DEFAULT_MSG GLOG_INCLUDE_DIR GLOG_LIBRARY)
 
-MARK_AS_ADVANCED(GLOG_INCLUDE_DIRS GLOG_LIBRARIES)
+if (GLOG_FOUND)
+    set(GLOG_INCLUDE_DIRS ${GLOG_INCLUDE_DIR})
+    set(GLOG_LIBRARIES ${GLOG_LIBRARY})
+    #MARK_AS_ADVANCED(GLOG_INCLUDE_DIRS GLOG_LIBRARIES)
+endif()    
