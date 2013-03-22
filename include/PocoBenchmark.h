@@ -12,6 +12,8 @@ class PocoBenchmark:public Benchmark {
         Poco::Logger& logger_;
         std::string   loggerName_;
 
+        void MacroDebugOnly(std::string message, size_t cnt);
+
         void LoggerMethodLogString(std::string message, size_t cnt);
         void LogToStream(std::string message, size_t cnt);
 
@@ -26,7 +28,6 @@ class PocoBenchmark:public Benchmark {
         void MacroGetWithStringParam(std::string message, size_t cnt);
         void MacroGetWithFloatParam(std::string message, size_t cnt);
         void MacroGetErrFmt(std::string message, size_t cnt);
-
 
     public:
         PocoBenchmark(Poco::Logger& logRef,std::string loggerName);

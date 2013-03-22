@@ -17,6 +17,14 @@ PocoBenchmark::PocoBenchmark(Poco::Logger& logRef,std::string loggerName):logger
 
 PocoBenchmark::~PocoBenchmark() {}
 
+void PocoBenchmark::MacroDebugOnly(std::string message, size_t cnt) {
+    for (size_t i=0; i<cnt; ++i) {
+        poco_debug(logger_,message);
+        poco_debug(logger_,message);
+        poco_debug(logger_,message);
+    }
+}
+
 void PocoBenchmark::LoggerMethodLogString(std::string message, size_t cnt) {
     for (size_t i=0; i<cnt; ++i) {
         logger_.debug(message);
@@ -120,6 +128,14 @@ void PocoBenchmark::MacroGetErrFmt(std::string message, size_t cnt) {
 
 BenchmarkResults PocoBenchmark::BenchmarkAll(string message, size_t cnt) {
     BenchmarkResults ret;
+
+    ret.push_back(
+            make_pair(
+                "Call only macro with debug level with string message",
+                runBench( bind(&PocoBenchmark::MacroDebugOnly,*this,message,cnt) )
+                )
+            );
+
     ret.push_back(
             make_pair(
                 "Call logger method with string message",

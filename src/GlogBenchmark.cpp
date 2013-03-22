@@ -13,6 +13,14 @@ GlogBenchmark::GlogBenchmark() {
 
 GlogBenchmark::~GlogBenchmark() {}
 
+void GlogBenchmark::LogDebugOnlyString(std::string message, size_t cnt) {
+    for (size_t i=0; i<cnt; ++i) {
+        DLOG(INFO)<<message;
+        DLOG(INFO)<<message;
+        DLOG(INFO)<<message;
+    }
+}
+
 void GlogBenchmark::SimpleLogString(std::string message, size_t cnt) {
     for (size_t i=0; i<cnt; ++i) {
         DLOG(INFO)<<message;
@@ -54,6 +62,14 @@ void GlogBenchmark::LogWithFloat(std::string message, size_t cnt) {
 
 BenchmarkResults GlogBenchmark::BenchmarkAll(string message, size_t cnt) {
     BenchmarkResults ret;
+
+    ret.push_back(
+            make_pair(
+                "Call logger with debug only level with string message",
+                runBench( bind(&GlogBenchmark::LogDebugOnlyString,*this,message,cnt) )
+                )
+            );
+
     ret.push_back(
             make_pair(
                 "Call logger with string message",
