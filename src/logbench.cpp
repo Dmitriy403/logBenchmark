@@ -108,5 +108,6 @@ int main(int argc, char** argv) {
         cout<<setw(65)<<(*it).first<<" "<<(*it).second<<endl;
     }
 
+    google::ShutdownGoogleLogging();
     return 0;
 }
