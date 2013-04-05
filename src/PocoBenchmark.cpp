@@ -140,52 +140,52 @@ BenchmarkResults PocoBenchmark::BenchmarkAll(string message, size_t cnt) {
     ret.push_back(
             make_pair(
                 "Call only macro with debug level with string message",
-                runBench( bind(&PocoBenchmark::MacroDebugOnly,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroDebugOnly, this, message, cnt) )
                 )
             );
 
     ret.push_back(
             make_pair(
                 "Call logger method with string message",
-                runBench( bind(&PocoBenchmark::LoggerMethodLogString,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::LoggerMethodLogString, this, message, cnt) )
                 )
             );
 
     ret.push_back(
             make_pair(
                 "Log to stream with string message",
-                runBench( bind(&PocoBenchmark::LogToStream,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::LogToStream, this, message, cnt) )
                 )
             );
 
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with reference to logger",
-                runBench( bind(&PocoBenchmark::MacroRef,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroRef, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with reference to logger and 1 int param",
-                runBench( bind(&PocoBenchmark::MacroRefWithIntParam,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroRefWithIntParam, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with reference to logger and 1 string param",
-                runBench( bind(&PocoBenchmark::MacroRefWithStringParam,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroRefWithStringParam, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with reference to logger and 1 float param",
-                runBench( bind(&PocoBenchmark::MacroRefWithFloatParam,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroRefWithFloatParam, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with reference to logger and 1 [ERRFMT] param",
-                runBench( bind(&PocoBenchmark::MacroRefErrFmt,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroRefErrFmt, this, message, cnt) )
                 )
             );
 
@@ -193,31 +193,31 @@ BenchmarkResults PocoBenchmark::BenchmarkAll(string message, size_t cnt) {
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with Logger::get call",
-                runBench( bind(&PocoBenchmark::MacroGet,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroGet, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with Logger::get call and 1 int param",
-                runBench( bind(&PocoBenchmark::MacroGetWithIntParam,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroGetWithIntParam, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with Logger::get call and 1 string param",
-                runBench( bind(&PocoBenchmark::MacroGetWithStringParam,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroGetWithStringParam, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with Logger::get call and 1 float param",
-                runBench( bind(&PocoBenchmark::MacroGetWithFloatParam,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroGetWithFloatParam, this, message, cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Macro poco_XXX with Logger::get call and 1 [ERRFMT] param",
-                runBench( bind(&PocoBenchmark::MacroGetErrFmt,*this,message,cnt) )
+                runBench( bind(&PocoBenchmark::MacroGetErrFmt, this, message, cnt) )
                 )
             );
 

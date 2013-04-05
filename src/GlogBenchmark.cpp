@@ -66,32 +66,32 @@ BenchmarkResults GlogBenchmark::BenchmarkAll(string message, size_t cnt) {
     ret.push_back(
             make_pair(
                 "Call logger with debug only level with string message",
-                runBench( bind(&GlogBenchmark::LogDebugOnlyString,*this,message,cnt) )
+                runBench( bind(&GlogBenchmark::LogDebugOnlyString,this,message,cnt) )
                 )
             );
 
     ret.push_back(
             make_pair(
                 "Call logger with string message",
-                runBench( bind(&GlogBenchmark::SimpleLogString,*this,message,cnt) )
+                runBench( bind(&GlogBenchmark::SimpleLogString,this,message,cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Call logger with string message with 1 int param",
-                runBench( bind(&GlogBenchmark::LogWithInt,*this,message,cnt) )
+                runBench( bind(&GlogBenchmark::LogWithInt,this,message,cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Call logger with string message with 1 string param",
-                runBench( bind(&GlogBenchmark::LogWithString,*this,message,cnt) )
+                runBench( bind(&GlogBenchmark::LogWithString,this,message,cnt) )
                 )
             );
     ret.push_back(
             make_pair(
                 "Call logger with string message with 1 float param",
-                runBench( bind(&GlogBenchmark::LogWithFloat,*this,message,cnt) )
+                runBench( bind(&GlogBenchmark::LogWithFloat,this,message,cnt) )
                 )
             );
 
