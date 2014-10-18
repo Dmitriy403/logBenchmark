@@ -4,9 +4,6 @@
 #include "Poco/LogStream.h"
 #include "Poco/Format.h"
 
-#include <utility>
-#include <functional>
-
 using namespace std;
 using Poco::Logger;
 using Poco::LogStream;
