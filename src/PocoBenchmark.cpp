@@ -2,6 +2,7 @@
 
 #include "Poco/Logger.h"
 #include "Poco/LogStream.h"
+#include "Poco/Format.h"
 
 #include <utility>
 #include <functional>
@@ -9,6 +10,22 @@
 using namespace std;
 using Poco::Logger;
 using Poco::LogStream;
+
+// For old POCO define some poco macroses
+#ifndef poco_debug_f1
+#define poco_debug_f1(logger, fmt, arg1) \
+            if ((logger).debug()) (logger).debug(Poco::format((fmt), (arg1))); else (void) 0
+#endif
+
+#ifndef poco_information_f1
+#define poco_information_f1(logger, fmt, arg1) \
+        if ((logger).information()) (logger).information(Poco::format((fmt), (arg1))); else (void) 0
+#endif
+
+#ifndef poco_error_f1
+#define poco_error_f1(logger, fmt, arg1) \
+        if ((logger).error()) (logger).error(Poco::format((fmt), (arg1))); else (void) 0
+#endif
 
 namespace LogBenchmark {
 
@@ -79,15 +96,6 @@ void PocoBenchmark::MacroRefWithFloatParam(std::string message, size_t cnt) {
     }
 }
 
-void PocoBenchmark::MacroRefErrFmt(std::string message, size_t cnt) {
-    string pattern = message+" %s";
-    for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(logger_, pattern, 1.23);
-        poco_information_f1(logger_, pattern, 1.23);
-        poco_error_f1(logger_, pattern, 1.23);
-    }
-}
-
 void PocoBenchmark::MacroGet(std::string message, size_t cnt) {
     for (size_t i=0; i<cnt; ++i) {
         poco_debug(Logger::get(loggerName_),message);
@@ -118,15 +126,6 @@ void PocoBenchmark::MacroGetWithStringParam(std::string message, size_t cnt) {
 
 void PocoBenchmark::MacroGetWithFloatParam(std::string message, size_t cnt) {
     string pattern = message+" %f";
-    for (size_t i=0; i<cnt; ++i) {
-        poco_debug_f1(Logger::get(loggerName_), pattern, 1.23);
-        poco_information_f1(Logger::get(loggerName_), pattern, 1.23);
-        poco_error_f1(Logger::get(loggerName_), pattern, 1.23);
-    }
-}
-
-void PocoBenchmark::MacroGetErrFmt(std::string message, size_t cnt) {
-    string pattern = message+" %s";
     for (size_t i=0; i<cnt; ++i) {
         poco_debug_f1(Logger::get(loggerName_), pattern, 1.23);
         poco_information_f1(Logger::get(loggerName_), pattern, 1.23);
@@ -182,13 +181,6 @@ BenchmarkResults PocoBenchmark::BenchmarkAll(string message, size_t cnt) {
                 runBench( bind(&PocoBenchmark::MacroRefWithFloatParam, this, message, cnt) )
                 )
             );
-    ret.push_back(
-            make_pair(
-                "Macro poco_XXX with reference to logger and 1 [ERRFMT] param",
-                runBench( bind(&PocoBenchmark::MacroRefErrFmt, this, message, cnt) )
-                )
-            );
-
 
     ret.push_back(
             make_pair(
@@ -212,12 +204,6 @@ BenchmarkResults PocoBenchmark::BenchmarkAll(string message, size_t cnt) {
             make_pair(
                 "Macro poco_XXX with Logger::get call and 1 float param",
                 runBench( bind(&PocoBenchmark::MacroGetWithFloatParam, this, message, cnt) )
-                )
-            );
-    ret.push_back(
-            make_pair(
-                "Macro poco_XXX with Logger::get call and 1 [ERRFMT] param",
-                runBench( bind(&PocoBenchmark::MacroGetErrFmt, this, message, cnt) )
                 )
             );
 

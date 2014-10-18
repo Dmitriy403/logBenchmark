@@ -66,7 +66,6 @@ int main(int argc, char** argv) {
     fileChannel->setProperty("rotation","100 M");
     fileChannel->setProperty("purgeCount","1");
     fileChannel->setProperty("purgeAge","1 seconds");
-    fileChannel->setProperty("rotateOnOpen","true");
 
     formattingChannel->setChannel(fileChannel);
     formattingChannel->open();
@@ -75,7 +74,6 @@ int main(int argc, char** argv) {
     fileChannel2->setProperty("rotation","100 M");
     fileChannel2->setProperty("purgeCount","1");
     fileChannel2->setProperty("purgeAge","1 seconds");
-    fileChannel2->setProperty("rotateOnOpen","true");
 
     Logger::create(pocoFormattingLogger, formattingChannel, Message::PRIO_DEBUG);
     Logger::create(pocoSimpleLogger, fileChannel2, Message::PRIO_DEBUG);

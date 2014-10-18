@@ -2,6 +2,3 @@
 
 !.gitignore
 !CMakeLists.txt
-!FindGlog.cmake
-!FindPkgMacros.cmake
-!FindPOCO.cmake

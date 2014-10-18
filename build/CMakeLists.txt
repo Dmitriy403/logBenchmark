@@ -4,20 +4,14 @@ project(logBenchmark)
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 
 IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
-SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D _DEBUG")
+    SET(CMPL_OPTS "-Wall -std=c++11 -pedantic -Werror")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMPL_OPTS}")
+    SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D _DEBUG ${CMPL_OPTS}")
 ELSEIF(MSVC)
-SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D_DEBUG")
+    SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D_DEBUG")
 ENDIF()
-
-find_package(Glog REQUIRED)
-include_directories(${GLOG_INCLUDE_DIRS})
-
-find_package(POCO REQUIRED)
-include_directories(${POCO_INCLUDE_DIRS})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include) 
 
 add_executable(logbench ../src/Benchmark.cpp ../src/PocoBenchmark.cpp ../src/GlogBenchmark.cpp ../src/logbench.cpp)
-target_link_libraries(logbench ${GLOG_LIBRARIES} ${POCO_LIBRARIES})
-
+target_link_libraries(logbench PocoFoundation glog)
