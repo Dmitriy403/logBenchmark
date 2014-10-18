@@ -11,7 +11,7 @@ ELSEIF(MSVC)
     SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D_DEBUG")
 ENDIF()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include) 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include) 
 
-add_executable(logbench ../src/Benchmark.cpp ../src/PocoBenchmark.cpp ../src/GlogBenchmark.cpp ../src/logbench.cpp)
+add_executable(logbench src/Benchmark.cpp src/PocoBenchmark.cpp src/GlogBenchmark.cpp src/logbench.cpp)
 target_link_libraries(logbench PocoFoundation glog)
